@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#07050d">
+<title>Guluu × Soni — A Little Place For You</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600;1,700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Manrope,system-ui,sans-serif;background:#05040a;color:#fff;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:20;background:radial-gradient(circle at 50% -10%,rgba(255,116,190,.08),transparent 35%),radial-gradient(circle at 100% 70%,rgba(117,94,255,.08),transparent 30%)}
+#intro{position:fixed;inset:0;z-index:999;background:#05040a;display:grid;place-items:center;transition:opacity 1.2s,visibility 1.2s}
+.intro-inner{width:min(650px,90%);text-align:center}
+.sys{font:13px/2 "DM Mono",monospace;color:#a9a0b4;letter-spacing:.05em;margin-bottom:28px}
+.sys b{color:#ff8fcf}
+.pulse{width:90px;height:90px;margin:0 auto 30px;border-radius:50%;display:grid;place-items:center;border:1px solid #ff8fcf66;box-shadow:0 0 0 0 #ff8fcf44;animation:pulse 1.6s infinite}
+.pulse span{font-size:38px;animation:beat 1s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 25px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@keyframes beat{50%{transform:scale(1.18)}}
+.intro-inner h1{font:italic 700 clamp(42px,9vw,78px)/1 "Playfair Display";background:linear-gradient(90deg,#fff,#ffaad9,#b7a6ff);-webkit-background-clip:text;color:transparent}
+.intro-inner p{color:#aaa1ae;margin:18px auto 34px;max-width:520px;line-height:1.8}
+.enter{border:1px solid #ff8fcf88;color:#fff;background:#ff79bd12;border-radius:99px;padding:15px 28px;cursor:pointer;font-weight:700;letter-spacing:.05em;transition:.3s}
+.enter:hover{transform:translateY(-3px);box-shadow:0 15px 45px #ff70bd22;background:#ff79bd22}
+#app{display:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;background:#05040acc;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff0d}
+.brand{font:700 15px "DM Mono";letter-spacing:.08em}.brand span{color:#ff8fcf}
+.navbtn{background:none;color:#ddd;border:1px solid #ffffff1a;padding:9px 14px;border-radius:30px;cursor:pointer}
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:100px 20px;position:relative;overflow:hidden}
+.stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#ffb3dc 1px,transparent 1px);background-size:120px 120px,190px 190px;background-position:20px 10px,80px 50px;opacity:.2;animation:drift 35s linear infinite}
+@keyframes drift{to{background-position:800px 600px,-600px 500px}}
+.hero-content{position:relative;z-index:2}
+.eyebrow{font:12px "DM Mono";color:#9d94a7;letter-spacing:.2em;text-transform:uppercase}
+.hero h2{font:italic 700 clamp(60px,14vw,150px)/.9 "Playfair Display";margin:25px 0 18px;background:linear-gradient(90deg,#fff,#ff91cd 55%,#c3b3ff);-webkit-background-clip:text;color:transparent}
+.hero .lead{max-width:600px;margin:auto;color:#bdb5c2;line-height:1.8;font-size:17px}
+.scroll{margin-top:65px;color:#817888;font:12px "DM Mono";animation:updown 2s infinite}
+@keyframes updown{50%{transform:translateY(8px)}}
+section{width:min(1080px,92%);margin:auto;padding:110px 0}
+.section-head{text-align:center;margin-bottom:48px}
+.section-head .mini{font:12px "DM Mono";letter-spacing:.16em;color:#ff8fcf}
+.section-head h3{font:italic 600 clamp(34px,6vw,58px) "Playfair Display";margin:12px 0}
+.section-head p{color:#8f8794;max-width:620px;margin:auto;line-height:1.8}
+.timeline{display:grid;gap:18px}
+.moment{display:grid;grid-template-columns:150px 1fr;gap:25px;padding:24px;border:1px solid #ffffff10;background:#ffffff05;border-radius:20px;transition:.3s}
+.moment:hover{transform:translateX(5px);border-color:#ff8fcf44}
+.moment .tag{font:12px "DM Mono";color:#ff9bd2}
+.moment h4{font-size:20px;margin-bottom:7px}.moment p{color:#9d96a1;line-height:1.7}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.photo{position:relative;overflow:hidden;border-radius:20px;min-height:270px;border:1px solid #ffffff12;background:#100c17}
+.photo:nth-child(1){grid-column:span 7}.photo:nth-child(2){grid-column:span 5}.photo:nth-child(3){grid-column:span 4}.photo:nth-child(4){grid-column:span 4}.photo:nth-child(5){grid-column:span 4}
+.photo img{width:100%;height:100%;min-height:270px;object-fit:cover;display:block;transition:transform .8s}
+.photo:hover img{transform:scale(1.06)}
+.photo:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,#05040acc)}
+.photo span{position:absolute;bottom:16px;left:17px;z-index:2;font-size:13px;color:#eee}
+.letter{max-width:760px;margin:auto;padding:38px 34px;border-radius:25px;background:linear-gradient(145deg,#ffffff08,#ff82c208);border:1px solid #ffffff12;box-shadow:0 30px 90px #0005}
+.letter p{color:#d6d0d8;line-height:2;font-size:17px}
+.letter .sign{font:italic 600 25px "Playfair Display";color:#ff9bd2;margin-top:25px}
+.song{max-width:600px;margin:auto;text-align:center;padding:35px;border-radius:25px;border:1px solid #ffffff12;background:#ffffff05}
+.song .disc{width:90px;height:90px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#ffb4dc 0 8%,#1b1220 9% 32%,#ff7ec4 33% 35%,#111 36%);box-shadow:0 0 45px #ff6fba22;animation:spin 8s linear infinite;animation-play-state:paused}
+.song.playing .disc{animation-play-state:running}
+@keyframes spin{to{transform:rotate(360deg)}}
+.song h4{font-size:21px}.song p{color:#918996;margin:8px 0 20px}
+.play{border:1px solid #ff8fcf77;background:#ff8fcf12;color:#fff;border-radius:99px;padding:12px 22px;cursor:pointer}
+.future{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.future-card{padding:28px;border:1px solid #ffffff10;border-radius:22px;background:#ffffff04}
+.future-card .icon{font-size:28px;margin-bottom:15px}.future-card h4{margin-bottom:8px}.future-card p{color:#9d96a1;line-height:1.7}
+.secret{text-align:center;min-height:80vh;display:grid;place-items:center}
+.secret-box{max-width:700px}
+.lock{font-size:45px;margin-bottom:18px}
+.secret-box h3{font:italic 600 clamp(38px,7vw,64px) "Playfair Display";margin-bottom:14px}
+.secret-box p{color:#958c9a;line-height:1.8;margin-bottom:30px}
+.reveal{border:1px solid #ff8fcf88;background:#ff79bd12;color:#fff;border-radius:99px;padding:15px 27px;cursor:pointer;font-weight:700}
+.final{display:none;margin-top:40px;animation:appear 2s ease}
+.final h4{font:italic 700 clamp(45px,9vw,85px) "Playfair Display";background:linear-gradient(90deg,#fff,#ff8fca);-webkit-background-clip:text;color:transparent}
+.final p{font-size:18px;color:#bbb;line-height:1.9;margin-top:15px}
+.final .heartbig{font-size:55px;margin-top:25px;animation:beat 1s infinite}
+@keyframes appear{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+footer{text-align:center;color:#625c67;padding:50px 20px;font:12px "DM Mono"}
+.heart{position:fixed;z-index:30;bottom:-30px;pointer-events:none;animation:float 5s linear forwards}
+@keyframes float{to{transform:translateY(-110vh) rotate(240deg);opacity:0}}
+@media(max-width:700px){
+ .moment{grid-template-columns:1fr;gap:8px}.gallery{grid-template-columns:1fr}.photo,.photo:nth-child(n){grid-column:span 1;min-height:360px}.photo img{min-height:360px}.future{grid-template-columns:1fr}.letter{padding:28px 22px}
+}
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="intro-inner">
+    <div class="pulse"><span>♥</span></div>
+    <div class="sys">
+      GULUU.EXE<br>
+      finding something worth keeping... <b>✓</b><br>
+      loading memories... <b>✓</b><br>
+      loading SONI... <b>✓</b>
+    </div>
+    <h1>Hello, Soni.</h1>
+    <p>This isn't a birthday page. There isn't a special occasion.<br>
+    Guluu just wanted to build you a little place on the internet.</p>
+    <button class="enter" onclick="enterWorld()">ENTER YOUR LITTLE WORLD →</button>
+  </div>
+</div>
+
+<div id="app">
+<nav>
+  <div class="brand">GULUU <span>×</span> SONI</div>
+  <button class="navbtn" onclick="document.getElementById('song').scrollIntoView({behavior:'smooth'})">♪ our song</button>
+</nav>
+
+<header class="hero">
+  <div class="stars"></div>
+  <div class="hero-content">
+    <div class="eyebrow">a private corner of the internet</div>
+    <h2>Soni</h2>
+    <p class="lead">Some people become part of your life quietly.<br>
+    Then one day you realize the ordinary moments aren't ordinary anymore.</p>
+    <div class="scroll">SCROLL TO DISCOVER ↓</div>
+  </div>
+</header>
+
+<section>
+  <div class="section-head">
+    <div class="mini">CHAPTER 01</div>
+    <h3>Where it started</h3>
+    <p>Not a perfect movie scene. Just two people who met at the office... and somehow a story began.</p>
+  </div>
+  <div class="timeline">
+    <article class="moment">
+      <div class="tag">THE OFFICE</div>
+      <div><h4>Where Guluu met Soni</h4><p>“In office we met.” Simple words, but they became the beginning of something Guluu never expected.</p></div>
+    </article>
+    <article class="moment">
+      <div class="tag">FIRST DRIVE</div>
+      <div><h4>Our first long bike ride</h4><p>The road kept moving, the conversations kept going, and one ordinary ride became a memory worth keeping.</p></div>
+    </article>
+    <article class="moment">
+      <div class="tag">THE SONG</div>
+      <div><h4>“Kebe Asi Tu Kahi Dabu” 🎶</h4><p>Some songs don't stay songs. They become attached to a person, a moment, a feeling.</p></div>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <div class="mini">CHAPTER 02</div>
+    <h3>Moments I kept</h3>
+    <p>Five photographs. Five little reminders of the girl who somehow became my favorite view.</p>
+  </div>
+  <div class="gallery">
+    <div class="photo"><img src="photo1.jpg"><span>One of my favorite us. ❤️</span></div>
+    <div class="photo"><img src="photo2.jpg"><span>That Soni look.</span></div>
+    <div class="photo"><img src="photo3.jpg"><span>Just you being you.</span></div>
+    <div class="photo"><img src="photo4.jpg"><span>And that smile...</span></div>
+    <div class="photo"><img src="photo5.jpg"><span>A memory worth keeping.</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <div class="mini">CHAPTER 03</div>
+    <h3>A note from Guluu</h3>
+    <p>Read slowly.</p>
+  </div>
+  <div class="letter">
+    <p>
+      Soni,<br><br>
+      I wanted to make you something instead of just sending you another message.
+      So I made this little corner of the internet and filled it with a few pieces of us.<br><br>
+      We met in an office. Then came conversations, little moments, and that first long bike ride.
+      Nothing about those moments needed to be grand to become important to me.<br><br>
+      And somewhere between the ordinary days and the silly conversations,
+      you became someone I look for in my day without even thinking about it.<br><br>
+      I don't know what the future will look like. But I know I want more roads,
+      more songs, more random conversations, more memories... and more reasons to smile because of you.<br><br>
+      This website is just code.<br>
+      What it is trying to say is much simpler:
+    </p>
+    <div class="sign">I'm really glad I met you. ❤️</div>
+    <div class="sign">— Guluu</div>
+  </div>
+</section>
+
+<section id="song">
+  <div class="section-head">
+    <div class="mini">CHAPTER 04</div>
+    <h3>One song. One memory.</h3>
+    <p>“Kebe Asi Tu Kahi Dabu” — because sometimes a song becomes part of the story.</p>
+  </div>
+  <div class="song" id="songCard">
+    <div class="disc"></div>
+    <h4>Kebe Asi Tu Kahi Dabu 🎧</h4>
+    <p>Press play when you're ready.</p>
+    <button class="play" onclick="toggleSong()">▶ PLAY</button>
+    <audio id="audio" loop src="song.mp3"></audio>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <div class="mini">CHAPTER 05</div>
+    <h3>Future loading...</h3>
+    <p>No dramatic promises. Just a few things Guluu hopes stay true.</p>
+  </div>
+  <div class="future">
+    <div class="future-card"><div class="icon">🏍️</div><h4>More roads</h4><p>More long rides where we forget to check the time.</p></div>
+    <div class="future-card"><div class="icon">🎶</div><h4>More songs</h4><p>More songs that accidentally become “our songs.”</p></div>
+    <div class="future-card"><div class="icon">😂</div><h4>More nonsense</h4><p>More conversations that make absolutely no sense to anyone else.</p></div>
+    <div class="future-card"><div class="icon">❤️</div><h4>More us</h4><p>More ordinary days that quietly turn into favorite memories.</p></div>
+  </div>
+</section>
+
+<section class="secret">
+  <div class="secret-box">
+    <div class="lock">🔐</div>
+    <h3>One last thing...</h3>
+    <p>I hid this because the best part should never be the easiest part to find.</p>
+    <button class="reveal" onclick="reveal()">UNLOCK THE LAST MESSAGE</button>
+    <div class="final" id="final">
+      <h4>Soni...</h4>
+      <p>I could have made a simple webpage.<br>
+      But you aren't a simple part of my life.<br><br>
+      So I made a whole little world instead.</p>
+      <div class="heartbig">❤️</div>
+      <p>Guluu → Soni<br><small>and the story is still loading...</small></p>
+    </div>
+  </div>
+</section>
+
+<footer>made with code, memories & a little too much love — Guluu ❤️ Soni</footer>
+</div>
+
+<script>
+function enterWorld(){
+  const intro=document.getElementById('intro');
+  intro.style.opacity='0';
+  setTimeout(()=>{
+    intro.style.visibility='hidden';
+    document.getElementById('app').style.display='block';
+    startHearts();
+  },1200);
+}
+function toggleSong(){
+  const a=document.getElementById('audio'), c=document.getElementById('songCard'), b=c.querySelector('.play');
+  if(a.paused){a.play().catch(()=>alert("Put your song file in this folder and name it song.mp3"));c.classList.add('playing');b.textContent='❚❚ PAUSE'}
+  else{a.pause();c.classList.remove('playing');b.textContent='▶ PLAY'}
+}
+function reveal(){
+  document.getElementById('final').style.display='block';
+  document.querySelector('.reveal').style.display='none';
+  for(let i=0;i<55;i++){
+    const h=document.createElement('div'); h.className='heart'; h.textContent=['❤️','💗','✨','💕'][Math.floor(Math.random()*4)];
+    h.style.left=(40+Math.random()*20)+'vw'; h.style.fontSize=(12+Math.random()*25)+'px'; h.style.animationDuration=(3+Math.random()*3)+'s';
+    document.body.appendChild(h); setTimeout(()=>h.remove(),6000);
+  }
+}
+function startHearts(){
+  setInterval(()=>{
+    const h=document.createElement('div');h.className='heart';h.textContent=['·','✦','♡','✨'][Math.floor(Math.random()*4)];
+    h.style.left=Math.random()*100+'vw';h.style.color=Math.random()>.45?'#ff8fcf':'#aaa0ff';h.style.fontSize=(10+Math.random()*15)+'px';
+    document.body.appendChild(h);setTimeout(()=>h.remove(),5000);
+  },850);
+}
+</script>
+</body>
+</html>
